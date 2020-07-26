@@ -1,0 +1,7 @@
+console.log(typeof 11)
+console.log(typeof 'abc')
+console.log(typeof null)
+console.log(typeof undefined)
+console.log(typeof 112n)
+console.log(typeof Symbol('symbol'))
+console.log(typeof {a: 1, b: 2})

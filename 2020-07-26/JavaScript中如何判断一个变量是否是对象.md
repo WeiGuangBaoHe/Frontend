@@ -31,7 +31,7 @@ JavaScript类型和typeof的对应关系如下图所示，typeof的返回值和J
 通过之前的讲解，我们知道typeof 返回'object'时该变量可能是Object也可能Null。因此我们可以先判断变量是否为null，如果不是再用typeof 进行判断。代码如下所示：
 
 ```javascript
-isObject = obj => obj !== null && obj === 'object'
+isObject = obj => obj !== null && typeof obj === 'object'
 ```
 
 ### 2.2 使用Object.prototype.toString进行判断
@@ -47,7 +47,7 @@ console.log(typeof [1, 2, 3]) // object
 
 如果我们使用isObject函数对变量进行判断时不仅`{a: 'a', b: 'b'}`这样的对象能通过判断，而且像数组、Promise、Date这样的内置的构造函数所返回的对象也能通过判断。但是在有些情况下我们只是想判断一个变量是否是`{a: 'a', b: 'b'}`这样的纯对象，而不是由各种JavaScript内置构造函数生成的对象时使用typeof方法就会显得捉襟见肘。
 
-对于判断一个变量是不一个纯对象，我们可以使用Object.prototype.toString方法进行判断，代码如下所示：
+对于判断一个变量是不是一个纯对象，我们可以使用Object.prototype.toString方法进行判断，代码如下所示：
 
 ```javascript
 const isPlainObject = obj => Object.prototype.toString.call(obj) === '[object Object]'
@@ -72,11 +72,11 @@ function isEmptyObj(obj) {
 
 for in 循环会遍历当前对象和对象原型上的可枚举属性，因此我们可以使用for in来遍历一个对象。(由于{}.\__proto__上的属性全部为不可枚举所以for in 不会遍历到任何属性)。
 
-缺点：但是这个方法并非完美，由于是只能遍历可枚举属性，所以如果一个对象上只有不可枚举属性的话，该方法会出错。
+缺点：但是这个方法并非完美，由于是只能遍历可枚举属性，所以如果一个对象上只有不可枚举属性的话，该方法会判断错误。
 
 ### 3.2 使用Object.keys方法判断
 
-这中方法的核心是空对象自身是没有属性的，因此我们可以获取一个对象自身的属性，如果结果为空那么就是一个空对象。
+这种方法的核心是空对象自身是没有属性的，因此我们可以获取一个对象自身的属性，如果结果为空那么就是一个空对象。
 
 ```javascript
 const isEmptyObj = obj => Object.keys(obj).length === 0
@@ -140,4 +140,3 @@ function isArray(obj) {
   }
 }
 ```
-
